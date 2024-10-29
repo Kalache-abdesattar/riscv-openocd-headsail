@@ -5150,7 +5150,7 @@ static int riscv013_halt_go(struct target *target)
 	dmcontrol = set_dmcontrol_hartsel(dmcontrol, dm->current_hartid);
 	dm_write(target, DM_DMCONTROL, dmcontrol);
 	uint32_t dmstatus;
-	for (size_t i = 0; i < 256; ++i) {
+	while(1) {
 		if (dmstatus_read(target, &dmstatus, true) != ERROR_OK)
 			return ERROR_FAIL;
 		/* When no harts are running, there's no point in continuing this loop. */
